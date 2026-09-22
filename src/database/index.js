@@ -3,8 +3,9 @@ import databaseConfig from '../config/database';
 
 import User from '../app/models/User';
 import Task from '../app/models/Task';
+import Tag from '../app/models/Tag';
 
-const models = [User, Task];
+const models = [User, Task, Tag];
 
 class Database {
     constructor() { 

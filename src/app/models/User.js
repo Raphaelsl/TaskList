@@ -20,6 +20,9 @@ class User extends Model {
         });
         return this;
     }
+    static associate(models){
+        this.hasMany(models.Tag,{foreignKey:'user_id', as: 'tags'});
+    }
 
     checkPassword(password){
         return bcrypt.compare(password, this.password_hash);
