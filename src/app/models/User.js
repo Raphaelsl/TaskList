@@ -1,7 +1,7 @@
-import Sequelize, {Model} from 'sequelize';
+import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
 class User extends Model {
-    static init(sequelize){
+    static init(sequelize) {
         super.init(
             {
                 name: Sequelize.STRING,
@@ -14,17 +14,18 @@ class User extends Model {
             }
         );
         this.addHook('beforeSave', async (user) => {
-            if(user.password){
+            if (user.password) {
                 user.password_hash = await bcrypt.hash(user.password, 8);
             }
         });
         return this;
     }
-    static associate(models){
-        this.hasMany(models.Tag,{foreignKey:'user_id', as: 'tags'});
+    static associate(models) {
+        this.hasMany(models.Tag, { foreignKey: 'user_id', as: 'tags' });
+        this.hasMany(models.Task, { foreignKey: 'user_id', as: 'tasks' });
     }
 
-    checkPassword(password){
+    checkPassword(password) {
         return bcrypt.compare(password, this.password_hash);
     }
 }
