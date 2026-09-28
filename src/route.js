@@ -29,4 +29,6 @@ routes.get("/tags", TagController.index);
 routes.put("/tags/:id", TagController.update);
 routes.delete("/tags/:id", TagController.delete);
 
+routes.post("/tasks/ai", TaskController.storeAI);
+
 export default routes;

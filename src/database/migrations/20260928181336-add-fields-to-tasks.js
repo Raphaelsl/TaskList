@@ -24,7 +24,11 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn('tasks', 'due_date')
-    await queryInterface.removeColumn('tasks', 'tag_id')
+    try {
+      await queryInterface.removeColumn('tasks', 'due_date');
+    } catch (e) { }
+    try {
+      await queryInterface.removeColumn('tasks', 'tag_id');
+    } catch (e) { }
   }
 };
