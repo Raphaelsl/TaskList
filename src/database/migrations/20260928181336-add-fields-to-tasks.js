@@ -2,21 +2,29 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
+  async up(queryInterface, Sequelize) {
+    await queryInterface.addColumn('tasks', 'due_date', {
+      type: Sequelize.DATE,
+      allowNull: true
+
+    });
+
+    await queryInterface.addColumn('tasks', 'tag_id', {
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'tags',
+        key: 'id',
+      },
+      onDelete: 'SET NULL',
+      onUpdate: 'CASCADE',
+      allowNull: true
+    });
+
+
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
+  async down(queryInterface, Sequelize) {
+    await queryInterface.removeColumn('tasks', 'due_date')
+    await queryInterface.removeColumn('tasks', 'tag_id')
   }
 };
